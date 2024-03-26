@@ -1,8 +1,12 @@
-function Login () {
+import LoginIcon from "../components/LoginIcon";
+
+function Login() {
     return (
         <div>
             <h1>Login</h1>
-            <a href="http://localhost:4000/auth/discord/login">Connection to discord</a>
+            <a href="http://localhost:3000/auth/discord/login">
+                <LoginIcon />
+            </a>
         </div>
     );
 }

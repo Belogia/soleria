@@ -1,15 +1,12 @@
+import Cookies from "js-cookie"
+import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import "./styles/App.css";
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  const token: string | undefined = Cookies.get("token");
+
+  return token ? <Dashboard /> : <Login />;
 }
 
 export default App;
