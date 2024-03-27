@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { IUser } from "../types";
+import Navbar from "../components/Navbar";
 
 function Dashboard() {
     const [user, setUser] = useState<IUser>({ id: "0", avatar: "0", username: "Loading error", guilds: []});
@@ -20,7 +21,9 @@ function Dashboard() {
     return (
         <div className="dashboard">
             <Sidebar user={user} onGuildClick={setSelectedGuild} />
+            
             <div className="content">
+                <Navbar />
                 <h1>Dashboard</h1>
                 {selectedGuild && <div>{selectedGuild}</div>}
                 {/* Add your content here */}
