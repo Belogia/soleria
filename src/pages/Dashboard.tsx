@@ -9,7 +9,9 @@ function Dashboard() {
     const [selectedGuild, setSelectedGuild] = useState<string>("0");
 
     async function getMe() {
-        const response = await axios.get('http://localhost:3000/api/user/me', {});
+        const response = await axios.get('http://localhost:3000/api/user/me', {
+            withCredentials: true,
+        });
 
         setUser(response.data);
     }
@@ -21,7 +23,7 @@ function Dashboard() {
     return (
         <div className="dashboard">
             <Sidebar user={user} onGuildClick={setSelectedGuild} />
-            
+
             <div className="content">
                 <Navbar />
                 <h1>Dashboard</h1>
