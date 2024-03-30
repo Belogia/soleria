@@ -1,16 +1,29 @@
-import "../styles/sidebar.css"
-import { IUser } from "../types";
+import { useEffect, useState } from "react";
+import { ISidebarProps, IUser } from "../types";
+import axios from "axios";
+import "../styles/sidebar.css";
 
-interface SidebarProps {
-    user: IUser;
-    onGuildClick: (guildId: string) => void;
-}
+function Sidebar({ onGuildClick }: Readonly<ISidebarProps>) {
+    const [user, setUser] = useState<IUser>({ id: "0", avatar: "0", username: "Loading error", guilds: []});
 
-function Sidebar({ user, onGuildClick }: Readonly<SidebarProps>) {
+    async function getUser() {
+        const response = await axios.get('http://localhost:3000/api/user/me', {
+            withCredentials: true,
+        });
+
+        setUser(response.data);
+    }
+
+    useEffect(() => {
+        getUser();
+    }, []);
+
     return (
         <div className="sidebar">
             <div className="user-info">
-                <img src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`} alt="Avatar" className="avatar" />
+                <img
+                    src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`} alt="Avatar" className="avatar"
+                />
                 <h3 className="username">{user.username}</h3>
             </div>
 
