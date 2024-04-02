@@ -1,13 +1,9 @@
-.dashboard {
-    display: flex;
-    height: 100vh;
-    margin-left: 250px;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
 .content {
-    flex: 1;
-    padding: 20px;
+    position: absolute;
+    top: 65px;
+    left: 250px; /* Largeur de la sidebar */
+    width: calc(100% - 250px); /* Prend le reste de l'espace après la sidebar */
+    height: calc(100% - 65);
     box-sizing: border-box;
+    overflow-y: auto;
 }
