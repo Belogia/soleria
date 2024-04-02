@@ -1,34 +1,19 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import { IUser } from "../types";
 import Navbar from "../components/Navbar";
+import ConfigEditor from "../components/ConfigEditor";
 
 function Dashboard() {
-    const [user, setUser] = useState<IUser>({ id: "0", avatar: "0", username: "Loading error", guilds: []});
-    const [selectedGuild, setSelectedGuild] = useState<string>("0");
-
-    async function getMe() {
-        const response = await axios.get('http://localhost:3000/api/user/me', {
-            withCredentials: true,
-        });
-
-        setUser(response.data);
-    }
-
-    useEffect(() => {
-        getMe();
-    }, []);
+    const [selectedGuild, setSelectedGuild] = useState<string | null>(null);
+    const [selectedBot, setSelectedBot] = useState<string | null>(null);
 
     return (
         <div className="dashboard">
-            <Sidebar user={user} onGuildClick={setSelectedGuild} />
+            <Sidebar onGuildClick={setSelectedGuild} />
+            <Navbar selectedGuild={selectedGuild} onBotClick={setSelectedBot} />
 
             <div className="content">
-                <Navbar />
-                <h1>Dashboard</h1>
-                {selectedGuild && <div>{selectedGuild}</div>}
-                {/* Add your content here */}
+                <ConfigEditor selectedGuild={selectedGuild} selectedBot={selectedBot} />
             </div>
         </div>
     )
