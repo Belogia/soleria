@@ -4,7 +4,6 @@ import { ConfigFieldArray } from "./ConfigFieldArray";
 import { ConfigFieldString } from "./ConfigFieldString";
 import { capitalize } from "../../utils/capitalize";
 import axios from "axios";
-import ConfigField from "./ConfigField";
 import "../../styles/config.scss";
 
 type ConfigType = { [key: string]: unknown };
@@ -18,7 +17,7 @@ function displayField(key: string, value: unknown) {
                 return <ConfigFieldArray key={key} fieldKey={key} value={value.join(", ")} />;
 
             if (value === null)
-                return <ConfigField key={key} fieldKey={key} value="" />;
+                return <ConfigFieldString key={key} fieldKey={key} value="" />;
 
             return (
                 <li key={key} className="config-field">
