@@ -1,26 +1,36 @@
 import { useCallback, useEffect, useState } from "react";
-import { IConfigEditorProps } from "../types";
+import { IConfigEditorProps } from "../../types";
+import { ConfigFieldArray } from "./ConfigFieldArray";
+import { ConfigFieldString } from "./ConfigFieldString";
+import { capitalize } from "../../utils/capitalize";
 import axios from "axios";
 import ConfigField from "./ConfigField";
+import "../../styles/config.scss";
 
 type ConfigType = { [key: string]: unknown };
 
 function displayField(key: string, value: unknown) {
     switch (typeof value) {
         case "string":
-            return <ConfigField key={key} fieldKey={key} value={value} />;
+            return <ConfigFieldString key={key} fieldKey={key} value={value} />;
         case "object":
             if (value instanceof Array)
-                return <ConfigField key={key} fieldKey={key} value={value.join(", ")} />;
+                return <ConfigFieldArray key={key} fieldKey={key} value={value.join(", ")} />;
 
             if (value === null)
                 return <ConfigField key={key} fieldKey={key} value="" />;
 
             return (
-                <ul className="sub-config-fields" key={key}>
-                    <h3>{key}</h3>
-                    {Object.keys((value as ConfigType)).map(subKey => displayField(subKey, (value as ConfigType)[subKey]))}
-                </ul>
+                <li key={key} className="config-field">
+                    <label>{capitalize(key)}</label>
+                    <ul className="sub-config-fields">
+                        {
+                            Object
+                                .keys((value as ConfigType))
+                                .map(subKey => displayField(subKey, (value as ConfigType)[subKey]))
+                        }
+                    </ul>
+                </li>
             );
     }
 }

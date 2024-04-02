@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
-import ConfigEditor from "../components/ConfigEditor";
+import "../styles/Dashboard.css";
+import ConfigEditor from "../components/ConfigComponents/ConfigEditor";
 
 function Dashboard() {
     const [selectedGuild, setSelectedGuild] = useState<string | null>(null);
