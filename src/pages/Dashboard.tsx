@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
-import "../styles/Dashboard.css";
+import "../styles/dashboard.css";
 import ConfigEditor from "../components/ConfigComponents/ConfigEditor";
 
 function Dashboard() {
