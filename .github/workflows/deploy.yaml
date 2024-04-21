@@ -25,10 +25,11 @@ jobs:
       run: yarn build
 
     - name: Deploy to server
-      uses: burnett01/rsync-deployments@4.1
+      uses: burnett01/rsync-deployments@7.0.1
       with:
         switches: -avzr --delete
-        remote_path: /path/to/your/app/on/server
+        path: dist/
+        remote_path: /home/deploy/tmp/
         remote_host: ${{ secrets.SERVER_HOST }}
         remote_user: ${{ secrets.SERVER_USERNAME }}
         remote_key: ${{ secrets.SERVER_SSH_KEY }}
