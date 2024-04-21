@@ -27,7 +27,7 @@ jobs:
     - name: Deploy to server
       uses: burnett01/rsync-deployments@7.0.1
       with:
-        switches: -avzr --delete --no-times --chown=deploy:deploy
+        switches: -avzr --delete --no-times --perms --chown=deploy:deploy --chmod=Du=rwx,Dg=rx,Do=r,Fu=rw,Fg=r,Fo=r
         path: dist/
         remote_path: /var/www/${{ secrets.WEBSITE_DOMAIN_NAME }}/
         remote_host: ${{ secrets.SERVER_HOST }}
