@@ -8,9 +8,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: ['18', '20']
 
     steps:
     - name: Checkout code
@@ -19,7 +16,7 @@ jobs:
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: '20'
 
     - name: Install dependencies
       run: yarn install --frozen-lockfile
@@ -28,7 +25,6 @@ jobs:
       run: yarn build
 
     - name: Deploy to server
-      if: matrix.node-version == '20'
       uses: burnett01/rsync-deployments@7.0.1
       with:
         switches: -avzr --delete --no-times
