@@ -24,15 +24,21 @@ jobs:
     - name: Build
       run: yarn build
 
-    - name: Deploy
-      uses: appleboy/ssh-action@master
+    - name: Deploy to server
+      uses: burnett01/rsync-deployments@4.1
       with:
-        host: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SERVER_USERNAME }}
-        key: ${{ secrets.SERVER_SSH_KEY }}
-        script: |
-          rm -rf /var/www/www.belogia.fr/
-          mkdir -p /var/www/www.belogia.fr/
-          echo $GITHUB_WORKSPACE
-          ls -l $GITHUB_WORKSPACE
-          cp -r $GITHUB_WORKSPACE/dist/* /var/www/www.belogia.fr/
+        switches: -avzr --delete
+        remote_path: /path/to/your/app/on/server
+        remote_host: ${{ secrets.SERVER_HOST }}
+        remote_user: ${{ secrets.SERVER_USERNAME }}
+        remote_key: ${{ secrets.SERVER_SSH_KEY }}
+
+    # - name: Deploy
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.SERVER_HOST }}
+    #     username: ${{ secrets.SERVER_USERNAME }}
+    #     key: ${{ secrets.SERVER_SSH_KEY }}
+    #     script: |
+    #       rm -rf /var/www/www.belogia.fr/
+    #       cp -r $GITHUB_WORKSPACE/dist/* /var/www/www.belogia.fr/
