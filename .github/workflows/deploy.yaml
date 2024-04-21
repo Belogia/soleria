@@ -31,6 +31,8 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         script: |
-          sudo rm -rf /var/www/html/*
-          sudo cp -r $GITHUB_WORKSPACE/dist/* /var/www/html/
-          sudo systemctl restart nginx
+          rm -rf /var/www/www.belogia.fr/
+          mkdir -p /var/www/www.belogia.fr/
+          echo $GITHUB_WORKSPACE
+          ls -l $GITHUB_WORKSPACE
+          cp -r $GITHUB_WORKSPACE/dist/* /var/www/www.belogia.fr/
